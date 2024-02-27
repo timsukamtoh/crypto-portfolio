@@ -1,6 +1,6 @@
 import "@/styles/globals.css";
 import { WagmiProvider, createConfig, http } from "wagmi";
-import { mainnet } from "wagmi/chains";
+import { mainnet, arbitrumSepolia } from "wagmi/chains";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 import { ThemeProvider } from "@/components/themes";
@@ -9,11 +9,11 @@ import type { AppProps } from "next/app";
 const config = createConfig(
   getDefaultConfig({
     // Your dApps chains
-    chains: [mainnet],
+    chains: [arbitrumSepolia],
     transports: {
       // RPC URL for each chain
-      [mainnet.id]: http(
-        `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_MAINNET}`,
+      [arbitrumSepolia.id]: http(
+        `https://arbitrum-sepolia.blockpi.network/v1/rpc/public`,
       ),
     },
 
@@ -37,8 +37,8 @@ const queryClient = new QueryClient();
       <QueryClientProvider client={queryClient}>
         <ConnectKitProvider>
         <ThemeProvider
-          
-          
+
+
           attribute="class"
           defaultTheme="dark"
           enableSystem

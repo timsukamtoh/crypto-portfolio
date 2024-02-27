@@ -70,28 +70,28 @@ export function SendTransaction() {
   ]
   const contractConfig = {
     address: '0x9d80C34CaA39929f3143ad28A87d771E3b3E8283' as `0x${string}`,
-    functionName: 'getChest',
-    args:[]
-
+    abi:NFT_ABI
   }
 
-
-  function ReadContract() {
-    const{data:balance} = useReadContract({
-      ...contractConfig,
-      functionName: 'ownerOf',
-      args:['0']
-    })
-  }
-
+  const{data:ownerOf} = useReadContract({
+    ...contractConfig,
+    functionName: 'ownerOf',
+    args:['0']
+  })
   return (
-    <form onSubmit={submit} className="flex flex-col items-center justify-center space-y-4">
-      <h1 className="text-2xl font-bold">Buy me a coffee!</h1>
-      <input name="value" placeholder="0.05 ETH" required className="p-2 border border-gray-300 rounded" />
-      <button type="submit" disabled={isPending} className="p-2 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed bg-purple w-100">
-        {isPending ? 'Confirming...' : 'Donate'}
-      </button>
-      {hash && <div className="text-gray-500">Transaction Hash: {hash}</div>}
-    </form>
+    <div>
+      Owner of ID: {ownerOf?.toString()}
+    </div>
   )
+
+  // return (
+  //   <form onSubmit={submit} className="flex flex-col items-center justify-center space-y-4">
+  //     <h1 className="text-2xl font-bold">Mint an NFT!</h1>
+  //     <input name="value" placeholder="0.05 ETH" required className="p-2 border border-gray-300 rounded" />
+  //     <button type="submit" disabled={isPending} className="p-2 text-white rounded disabled:bg-gray-400 disabled:cursor-not-allowed bg-purple w-100">
+  //       {isPending ? 'Confirming...' : 'Donate'}
+  //     </button>
+  //     {hash && <div className="text-gray-500">Transaction Hash: {hash}</div>}
+  //   </form>
+  // )
 }
